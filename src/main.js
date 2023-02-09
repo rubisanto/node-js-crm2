@@ -118,11 +118,8 @@ app.delete('/orders/:id', (request, response) => {
 })
 
 // Ajouter un client
-app.post('/clients', (request, response) => {
-  const client = request.body
-  if (!client) {
-    return response.status(400).send('Client is required')
-  }
+app.post('/clients', bodyParser, (request, response) => {
+  const client = JSON.parse(request.body)
   database.clients.push(client)
   response.send('Client added')
 })
@@ -132,3 +129,14 @@ const PORT = 3000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+function bodyParser(req, res, next) {
+  let body = ''
+  req.on('data', (chunk) => {
+    body += chunk.toString()
+  })
+  req.on('end', () => {
+    req.body = body
+    next()
+  })
+}
