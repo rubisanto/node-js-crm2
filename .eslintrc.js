@@ -6,12 +6,6 @@ module.exports = {
     'no-var': 'error',
     'prefer-const': 'error',
     'prefer-template': 'error',
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
   },
   env: {
     es6: true,
